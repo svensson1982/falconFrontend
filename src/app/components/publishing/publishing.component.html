@@ -1,0 +1,18 @@
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a routerLink="/">Publishing</a>
+            </li>
+            <li class="breadcrumb-item active">Modify</li>
+            <li class="save-btn">
+                <button class="btn btn-info" (click)="saveJson()">Save data</button>
+            </li>
+        </ol>
+        <!-- Card -->
+        <div class="card mb-3">
+            <json-editor [options]="editorOptions" [data]="data"></json-editor>
+        </div>
+    </div>
+</div>

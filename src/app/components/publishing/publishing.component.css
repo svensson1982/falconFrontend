@@ -1,0 +1,13 @@
+.card-columns{
+    column-count: 1;
+}
+
+.jsoneditor{
+    height: 350px;
+}
+
+.save-btn{
+    top: 77px;
+    right: 30px;
+    position: absolute;
+}
