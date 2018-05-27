@@ -1,3 +1,21 @@
-<p>
-  chart works!
-</p>
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routerLink="/">Publishing</a>
+      </li>
+      <li class="breadcrumb-item active">Modify</li>
+      <!--<li class="save-btn">
+        <button class="btn btn-info" (click)="saveJson()">Save data</button>
+      </li>-->
+    </ol>
+    <!-- Card -->
+    <div class="card mb-3">
+      <button class="btn btn-info" (click)="add()">Add Point!</button>
+      <div [chart]="chart"></div>
+    </div>
+  </div>
+</div>
+
+

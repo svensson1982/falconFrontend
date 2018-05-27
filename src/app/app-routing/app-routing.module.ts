@@ -7,12 +7,13 @@ import { NotFoundComponent } from "../components/not-found/not-found.component";
 import { PublishingComponent } from "../components/publishing/publishing.component";
 
 /*Services*/
+import { ChartService } from "../services/chart-service/chart.service";
 import { PublishingService } from '../services/publishing-service/publishing.service';
 
 const appRoutes: Routes = [
     {pathMatch: 'full', path: '', redirectTo: '/publishing'},
     {path: 'publishing', component: PublishingComponent, resolve: {publishing: PublishingService}},
-    {path: 'charts', component: ChartComponent},
+    {path: 'charts', component: ChartComponent,  resolve: {chartData: ChartService}},
 
     {path: 'not-found', component: NotFoundComponent},
     {path: '**', redirectTo: '/not-found'},
