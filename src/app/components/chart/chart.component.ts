@@ -1,8 +1,8 @@
+import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from "@angular/common/http";
 
 import { Chart } from 'angular-highcharts';
-import { HttpErrorResponse } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
 import { ChartService } from "../../services/chart-service/chart.service";
 
 @Component({
@@ -13,6 +13,7 @@ import { ChartService } from "../../services/chart-service/chart.service";
 export class ChartComponent implements OnInit {
     data: any;
     chart: any;
+
     constructor(private route: ActivatedRoute,
                 private chartService: ChartService) {
     }
@@ -28,24 +29,23 @@ export class ChartComponent implements OnInit {
 
                     this.data = res.chartData;
 
-
                     res.chartData.forEach(element => {
-                        Object.keys(element).forEach(function (property) {
-                            if (element[property] !== '') {
+                        console.log(element)
+                        if (Object.keys(element).length > 0) {
                                 let d = new Date(element.post_impressions[0].timestamp);
-                                timestamps.push(d.getFullYear()+'-' + (d.getMonth()+1) + '-'+d.getDate() + ' ' +d.getHours()+':'+d.getMinutes() +':'+d.getSeconds());
+                                timestamps.push(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' +
+                                    +(d.getMinutes() < 10 ? '0' : '') + d.getMinutes() + ':' + d.getSeconds());
                                 postImpressions.push(Number(element.post_impressions[0].value));
                                 postImpressionsOrganic.push(Number(element.post_impressions_organic[0].value));
                                 postImpressionsViral.push(Number(element.post_impressions_viral[0].value));
                                 postImpressionsPaid.push(Number(element.post_impressions_paid[0].value));
                             }
-                        });
                     });
 
                     console.log([...postImpressions])
                     this.chart = new Chart({
                         chart: {
-                            type: 'line'
+                            type: 'line',
                         },
                         title: {
                             text: 'Reach data'
@@ -60,13 +60,13 @@ export class ChartComponent implements OnInit {
                             {
                                 name: 'postImpressions',
                                 data: [...postImpressions]
-                            },{
+                            }, {
                                 name: 'postImpressionsOrganic',
                                 data: [...postImpressionsOrganic]
-                            },{
+                            }, {
                                 name: 'postImpressionsViral',
                                 data: [...postImpressionsViral]
-                            },{
+                            }, {
                                 name: 'postImpressionsPaid',
                                 data: [...postImpressionsPaid]
                             },
@@ -82,10 +82,27 @@ export class ChartComponent implements OnInit {
                 }
             );
 
+        this.chartService.receivePoints()
+            .subscribe((random) => {
+                this.chart.ref.series[0].addPoint(random.random1);
+                this.chart.ref.series[1].addPoint(random.random2);
+                this.chart.ref.series[2].addPoint(random.random3);
+                this.chart.ref.series[3].addPoint(random.random4);
+            })
+
     }
-    
+
     // add point to chart series
-    add() {
-        this.chart.addPoint(Math.floor(Math.random() * 10));
+    addPoints(): void {
+        //Array(4).fill(1).map(() => Math.round(Math.random() * 100000))
+        const randoms = {
+            random1: Math.round(Math.random() * 100000),
+            random2: Math.round(Math.random() * 100000),
+            random3: Math.round(Math.random() * 100000),
+            random4: Math.round(Math.random() * 10)
+        };
+        this.chartService.addPoints(randoms);
     }
+
+
 }
