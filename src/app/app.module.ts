@@ -11,7 +11,7 @@ import { PublishingComponent } from './components/publishing/publishing.componen
 
 /*Services*/
 import { GlobalService } from './services/global/global.service';
-import { ChartService } from "./services/chart-service/chart.service";
+import { ChartService } from './services/chart-service/chart.service';
 import { PublishingService } from './services/publishing-service/publishing.service';
 
 /*Module*/

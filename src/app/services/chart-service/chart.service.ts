@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import * as io from 'socket.io-client';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
-import { GlobalService } from "../global/global.service";
-import { environment } from "../../../environments/environment";
+import { GlobalService } from '../global/global.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ChartService implements Resolve<any> {

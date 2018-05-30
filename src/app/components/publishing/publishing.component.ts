@@ -1,9 +1,9 @@
-import { ActivatedRoute } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
+import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import { PublishingService } from "../../services/publishing-service/publishing.service";
+import { PublishingService } from '../../services/publishing-service/publishing.service';
 
 @Component({
     selector: 'app-publishing',
@@ -17,7 +17,7 @@ export class PublishingComponent implements OnInit{
 
     constructor(private route: ActivatedRoute,
                 private publishingService: PublishingService) {
-        //we get data from json
+        // we get data from json
         this.route.data
             .subscribe((res: any) => {
                     this.jsonData = res.publishing;
@@ -38,7 +38,7 @@ export class PublishingComponent implements OnInit{
     }
 
     ngOnInit(){
-        //when we have new data or something removed/updated
+        // when we have new data or something removed/updated
         this.publishingService.receiveData()
             .subscribe((data) => {
                 console.log(data);
@@ -51,12 +51,12 @@ export class PublishingComponent implements OnInit{
      * Save the modified data, send to backend.
      */
     saveJson() {
-        //get the modified json data
+        // get the modified json data
         let JsonData = {publishing: this.editor.get()}
         this.publishingService.saveJson(JSON.stringify(JsonData))
             .subscribe((response: string) => {
                     this.publishingService.addData(this.editor.get());
-                    //window.alert(response.message);
+                    // window.alert(response.message);
                 },
                 (err: HttpErrorResponse) => {
                     if (err.error instanceof Error) {

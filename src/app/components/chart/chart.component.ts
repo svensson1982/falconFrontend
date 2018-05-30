@@ -1,9 +1,9 @@
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { Chart } from 'angular-highcharts';
-import { ChartService } from "../../services/chart-service/chart.service";
+import { ChartService } from '../../services/chart-service/chart.service';
 
 @Component({
     selector: 'app-chart',
@@ -30,11 +30,10 @@ export class ChartComponent implements OnInit {
                     this.data = res.chartData;
 
                     res.chartData.forEach(element => {
-                        console.log(element)
                         if (Object.keys(element).length > 0) {
                                 let d = new Date(element.post_impressions[0].timestamp);
                                 timestamps.push(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' +
-                                    +(d.getMinutes() < 10 ? '0' : '') + d.getMinutes() + ':' + d.getSeconds());
+                                    + d.getMinutes() + ':' + d.getSeconds());
                                 postImpressions.push(Number(element.post_impressions[0].value));
                                 postImpressionsOrganic.push(Number(element.post_impressions_organic[0].value));
                                 postImpressionsViral.push(Number(element.post_impressions_viral[0].value));
@@ -42,7 +41,6 @@ export class ChartComponent implements OnInit {
                             }
                     });
 
-                    console.log([...postImpressions])
                     this.chart = new Chart({
                         chart: {
                             type: 'line',
@@ -72,6 +70,8 @@ export class ChartComponent implements OnInit {
                             },
                         ]
                     });
+
+                    console.log(this.chart);
                 },
                 (err: HttpErrorResponse) => {
                     if (err.error instanceof Error) {
@@ -81,20 +81,23 @@ export class ChartComponent implements OnInit {
                     }
                 }
             );
-
         this.chartService.receivePoints()
             .subscribe((random) => {
+                // timestamp
+                this.chart.ref.axes[0].categories
+                    .push(new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0].replace('T', ' '));
+                // data
                 this.chart.ref.series[0].addPoint(random.random1);
                 this.chart.ref.series[1].addPoint(random.random2);
                 this.chart.ref.series[2].addPoint(random.random3);
                 this.chart.ref.series[3].addPoint(random.random4);
-            })
+
+            });
 
     }
 
     // add point to chart series
     addPoints(): void {
-        //Array(4).fill(1).map(() => Math.round(Math.random() * 100000))
         const randoms = {
             random1: Math.round(Math.random() * 100000),
             random2: Math.round(Math.random() * 100000),
