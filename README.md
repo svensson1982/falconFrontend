@@ -6,8 +6,8 @@ How to start frontend:
 
 1. Clone it<br>
 2. Open a command line/terminal<br>
-3. Enter the cloned directory, and after run: npm install (npm will install dependencies, packages)<br>
-4. In command line/terminal run: ng serve
+3. Enter the cloned directory, and after run: `npm install` (npm will install dependencies, packages)<br>
+4. In command line/terminal run: `ng serve`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
 
